@@ -31,7 +31,7 @@ float video(int w, int h, int durationMovie, int durationCredits, int fps, char*
     } else if (strcmp(unit, "go") == 0) { // 'go' for gigabytes
         return totalSizeInBits / 8 / 1024 / 1024 / 1024; // Convert bits to bytes, then bytes to gigabytes
     } else {
-        return 0; // for invalid unit
+        return 0; // invalid unit
     }
 }
 
