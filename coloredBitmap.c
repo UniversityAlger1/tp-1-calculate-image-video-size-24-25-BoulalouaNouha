@@ -20,7 +20,7 @@ float coloredBitmap(int w, int h, char* unit) {
     } else if (strcmp(unit, "go") == 0) { // 'go' for gigabytes
         return sizeInBits / 8 / 1024 / 1024 / 1024; // Convert bits to bytes, then bytes to gigabytes
     } else {
-        return 0; // E for an unrecognized unit
+        return 0; // for an unrecognized unit
     }
 }
 
