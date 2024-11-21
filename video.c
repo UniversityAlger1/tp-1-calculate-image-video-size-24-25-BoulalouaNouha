@@ -1,5 +1,4 @@
 #include <string.h>
-#include <stdio.h>
 #include "config/video.h"
 // Parameters:
 //   w: width of the image
@@ -10,29 +9,35 @@
 // Return value
 //   colored video size (based on the unit passed parametter)
 float video(int w, int h, int durationMovie, int durationCredits, int fps, char* unit) {
-       // Calculate the frame sizes
-    float sizePerColoredFrame = w * h * 24;   // Size of one colored frame in bits (24 bits per pixel)
-    float sizePerBWFrame = w * h * 8;         // Size of one BW frame in bits (8 bits per pixel)
+   // YOUR CODE HERE - BEGIN
+  // Calculer la taille d'un frame en bits pour chaque section
+    float colorFrameSize = w * h * 3 *fps*durationMovie; // Section couleur : 3 octets/pixel
+    float bwFrameSize = w * h* fps*durationCredits;    // Section noir et blanc : 1 octet/pixel
+    // Taille totale de la video
+    float totalSize = colorFrameSize *8 + bwFrameSize*1;
 
-    // Calculate total frames for each section
-    int totalColoredFrames = durationMovie * fps;
-    int totalBWFrames = durationCredits * fps;
-
-    // Calculate total video size in bits
-    float totalSizeInBits = (totalColoredFrames * sizePerColoredFrame) + (totalBWFrames * sizePerBWFrame);
-
-  // Conversion based on the unit specified
-    if (strcmp(unit, "bt") == 0) { // 'bt' for bytes
-        return totalSizeInBits / 8; // Convert bits to bytes
-    } else if (strcmp(unit, "ko") == 0) { // 'ko' for kilobytes
-        return totalSizeInBits / 8 / 1024; // Convert bits to bytes, then bytes to kilobytes
-    } else if (strcmp(unit, "mo") == 0) { // 'mo' for megabytes
-        return totalSizeInBits / 8 / 1024 / 1024; // Convert bits to bytes, then bytes to megabytes
-    } else if (strcmp(unit, "go") == 0) { // 'go' for gigabytes
-        return totalSizeInBits / 8 / 1024 / 1024 / 1024; // Convert bits to bytes, then bytes to gigabytes
-    } else {
-        return 0; // invalid unit
-    }
+    // Conversion en fonction de l'unité
+    if (strcmp(unit, "bt") == 0) {
+        return totalSize / 8; // Convertir en octets
+    } else if (strcmp(unit, "ko") == 0) {
+        return (totalSize /8)/1024; // Convertir en kilooctets
+    } else if (strcmp(unit, "mo") == 0) {
+        return ((totalSize /8)/1024)/1024; // Convertir en mégaoctets
+    } else if (strcmp(unit, "go") == 0) {
+        return (((totalSize /8) /1024)/ 1024)/1024; // Convertir en gigaoctes
+    }else 
+    return totalSize;
+   // YOUR CODE HERE - END
+   return 0;
 }
+#include <stdio.h>
+#include "config/video.h"
+
+int main() {
+    printf("Testing video:\n");
+    printf("Result: %.6f megabytes\n", video(500, 300, 60, 10, 20, "mo"));
+    return 0;
+}
+
 
 
