@@ -30,14 +30,7 @@ float video(int w, int h, int durationMovie, int durationCredits, int fps, char*
    // YOUR CODE HERE - END
    return 0;
 }
-#include <stdio.h>
-#include "config/video.h"
 
-int main() {
-    printf("Testing video:\n");
-    printf("Result: %.6f megabytes\n", video(500, 300, 60, 10, 20, "mo"));
-    return 0;
-}
 
 
 
